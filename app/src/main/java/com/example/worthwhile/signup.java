@@ -8,13 +8,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class signup extends AppCompatActivity {
 
     private EditText mSignUpEmail,mSignUpPassword;
     private TextView mgotoLogin;
     private RelativeLayout mSignUpBtn;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,8 @@ public class signup extends AppCompatActivity {
         mSignUpPassword = findViewById(R.id.signup_password);
         mgotoLogin = findViewById(R.id.goto_login);
         mSignUpBtn = findViewById(R.id.signUp);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         mgotoLogin.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +65,43 @@ public class signup extends AppCompatActivity {
                 else
                 {
                     // Register user to firebase
+                    firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(signup.this, "Registration successfully!", Toast.LENGTH_SHORT).show();
+                                sendEmailVerification();
+                            }
+                            else
+                            {
+                                Toast.makeText(signup.this, "Failed to register", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
+    }
+    private void sendEmailVerification() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-
+        if(firebaseUser!= null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(signup.this, "Verification email is sent,verify and login again", Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                    finish();;
+                    startActivity(new Intent(signup.this,MainActivity.class));
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(signup.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

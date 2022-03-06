@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "989101102463",
+    "project_id": "worthwhile-e2460",
+    "storage_bucket": "worthwhile-e2460.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989101102463:android:5157c4365919249fd6764a",
+        "android_client_info": {
+          "package_name": "com.example.worthwhile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989101102463-1ik1ud9lqmk229o38ba7p1g0rae9jpfh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0qN4zsJCw2s2cw2oUzYAanDrBeXw1-eM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989101102463-1ik1ud9lqmk229o38ba7p1g0rae9jpfh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
