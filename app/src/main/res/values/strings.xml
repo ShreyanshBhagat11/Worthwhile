@@ -5,6 +5,23 @@
     <string name="enter_your_email">Enter your Email</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="log_in_button">Log In</string>
-    <string name="forget_password">Forget password</string>
+    <string name="forget_password">Forget Password</string>
     <string name="new_user">New User! want to sign in?</string>
+    <string name="new_user_only">New user</string>
+    <string name="nice_to_see_you_here">Nice to see you here!</string>
+    <string name="sign_up_btn">Sign up</string>
+    <string name="want_to_login">Want to login?</string>
+    <string name="title_activity_forget_password">ForgetPassword</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="dont_worry_we_are_here">Dont worry we are here</string>
+    <string name="enter_your_registered_email">Enter your registered email</string>
+    <string name="go_back_to_login_screen">Go back to login screen</string>
+    <string name="recover_password">Recover password</string>
 </resources>

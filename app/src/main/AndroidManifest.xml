@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Worthwhile">
         <activity
+            android:name=".ForgetPassword"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.Worthwhile.NoActionBar"></activity>
+        <activity android:name=".signup" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
