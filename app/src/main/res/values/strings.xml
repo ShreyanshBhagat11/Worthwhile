@@ -24,4 +24,6 @@
     <string name="enter_your_registered_email">Enter your registered email</string>
     <string name="go_back_to_login_screen">Go back to login screen</string>
     <string name="recover_password">Recover password</string>
+    <string name="enter_your_title">Enter your title</string>
+    <string name="enter_your_content">Enter your content</string>
 </resources>

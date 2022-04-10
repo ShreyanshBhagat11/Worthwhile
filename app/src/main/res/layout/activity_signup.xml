@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signup">
+    tools:context=".SignUp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/signup_email"
             android:hint="@string/enter_your_email"
-            android:inputType="textEmailAddress">
+            android:inputType="textEmailAddress"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@">
         </EditText>
 
     </com.google.android.material.textfield.TextInputLayout>

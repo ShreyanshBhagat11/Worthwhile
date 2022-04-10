@@ -11,14 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class signup extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     private EditText mSignUpEmail,mSignUpPassword;
     private TextView mgotoLogin;
@@ -43,7 +42,7 @@ public class signup extends AppCompatActivity {
         mgotoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(signup.this,MainActivity.class);
+                Intent intent = new Intent(SignUp.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,11 +55,11 @@ public class signup extends AppCompatActivity {
 
                 if(email.isEmpty() || password.isEmpty())
                 {
-                    Toast.makeText(signup.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }
                 else if (password.length() < 7)
                 {
-                    Toast.makeText(signup.this, "Password length should be greater than 7", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "Password length should be greater than 7", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -70,12 +69,12 @@ public class signup extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(signup.this, "Registration successfully!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this, "Registration successfully!", Toast.LENGTH_SHORT).show();
                                 sendEmailVerification();
                             }
                             else
                             {
-                                Toast.makeText(signup.this, "Failed to register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -91,16 +90,16 @@ public class signup extends AppCompatActivity {
             firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(signup.this, "Verification email is sent,verify and login again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "Verification email is sent,verify and login again", Toast.LENGTH_SHORT).show();
                     firebaseAuth.signOut();
-                    finish();;
-                    startActivity(new Intent(signup.this,MainActivity.class));
+                    finish();
+                    startActivity(new Intent(SignUp.this,MainActivity.class));
                 }
             });
         }
         else
         {
-            Toast.makeText(signup.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUp.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
         }
     }
 
