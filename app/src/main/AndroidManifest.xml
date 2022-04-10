@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Worthwhile">
+        <activity android:name=".CreateNote"></activity>
+        <activity android:name=".NotesActivity" />
         <activity
             android:name=".ForgetPassword"
             android:label="@string/title_activity_forget_password"
-            android:theme="@style/Theme.Worthwhile.NoActionBar"></activity>
-        <activity android:name=".signup" />
+            android:theme="@style/Theme.Worthwhile.NoActionBar" />
+        <activity android:name=".SignUp" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
