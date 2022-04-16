@@ -35,6 +35,7 @@ public class CreateNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
+
         mcreatetitleofnote = findViewById(R.id.createtitleofnote);
         mcreatecontentofnote = findViewById(R.id.createcontentofnote);
         msavenote = findViewById(R.id.savenote);
@@ -44,7 +45,7 @@ public class CreateNote extends AppCompatActivity {
         mprogressBar = findViewById(R.id.progress_bar_of_create_note);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setTitle("Create new note");
         msavenote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +80,8 @@ public class CreateNote extends AppCompatActivity {
                             mprogressBar.setVisibility(View.INVISIBLE);
                         }
                     });
+
+
                 }
             }
         });
