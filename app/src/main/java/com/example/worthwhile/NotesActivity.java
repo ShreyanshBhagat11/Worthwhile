@@ -1,20 +1,26 @@
 package com.example.worthwhile;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -24,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import org.jetbrains.annotations.NotNull;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -45,7 +50,7 @@ public class NotesActivity extends AppCompatActivity {
 
         mcreatenotefab = findViewById(R.id.create_note_fab);
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         getSupportActionBar().setTitle("All Notes");
@@ -63,8 +68,49 @@ public class NotesActivity extends AppCompatActivity {
         noteAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allnotes) {
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position,@NonNull firebasemodel model) {
+
+                ImageView popupbutton = holder.itemView.findViewById(R.id.menupopupbutton);
+
                 holder.notetitle.setText(model.getTitle());
                 holder.notecontent.setText(model.getContent());
+                
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(NotesActivity.this,Notedetails.class);
+                        startActivity(intent);
+                        Toast.makeText(NotesActivity.this, "note click", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                popupbutton.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view) {
+                        PopupMenu popupMenu = new PopupMenu(view.getContext(),view);
+                        popupMenu.setGravity(Gravity.END);
+                        popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Intent intent = new Intent(view.getContext(),Editnoteactivity.class);
+                                view.getContext().startActivity(intent);
+                                return false;
+                            }
+                        });
+
+                        popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                // note deletiion
+                                return false;
+                            }
+                        });
+
+                        popupMenu.show();
+
+                    }
+                });
+
             }
 
             @NonNull
@@ -75,11 +121,16 @@ public class NotesActivity extends AppCompatActivity {
             }
         };
 
-        mrecyclerView = findViewById(R.id.recyclerview);
-        mrecyclerView.setHasFixedSize(true);
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        mrecyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mrecyclerView.setAdapter(noteAdapter);
+        try {
+            mrecyclerView = findViewById(R.id.recyclerview);
+            mrecyclerView.setHasFixedSize(true);
+            staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            mrecyclerView.setLayoutManager(staggeredGridLayoutManager);
+            mrecyclerView.setAdapter(noteAdapter);
+            mrecyclerView.setItemAnimator(null);
+        }catch (Exception e){
+            Toast.makeText(this, "Something went wronog", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public  class NoteViewHolder extends RecyclerView.ViewHolder{
@@ -119,12 +170,7 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(noteAdapter!=null)
-        {
-            Log.i(TAG,"Inside onStart");
-            noteAdapter.startListening();
-        }
-
+        noteAdapter.startListening();
     }
 
     @Override

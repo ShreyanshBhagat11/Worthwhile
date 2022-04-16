@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mLogInBtn,mgoto_sign_up;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-
+    private ProgressBar mprogressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getSupportActionBar().hide();
 
         mLogInEmail = findViewById(R.id.login_email);
         mLogInPassword = findViewById(R.id.login_Password);
@@ -38,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
         mLogInBtn = findViewById(R.id.login);
         mgoto_sign_up = findViewById(R.id.goto_sign_up);
 
+        mprogressBar = findViewById(R.id.progress_bar_of_main_activity);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+//        if the user is already login dont ask for login option
         if (firebaseUser!=null)
         {
             finish();
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     // Login the user
+
+                    mprogressBar.setVisibility(View.VISIBLE);
+
                     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -69,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                             else
                             {
                                 Toast.makeText(MainActivity.this, "Account does not exist!", Toast.LENGTH_SHORT).show();
+                                mprogressBar.setVisibility(View.INVISIBLE);
                             }
                         }
                     });
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
+            mprogressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(MainActivity.this, "Verify your email first!", Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
         }

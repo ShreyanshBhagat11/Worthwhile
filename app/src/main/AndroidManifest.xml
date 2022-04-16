@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Worthwhile">
-        <activity android:name=".CreateNote"></activity>
+        <activity android:name=".Notedetails"></activity>
+        <activity android:name=".Editnoteactivity" />
+        <activity android:name=".CreateNote" />
         <activity android:name=".NotesActivity" />
         <activity
             android:name=".ForgetPassword"
